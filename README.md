@@ -1,4 +1,4 @@
-# this readme is from MT-YRW
+# This readme is from MT-YRW
 A modified version of open-source project named edgeai-yolox. located in:https://github.com/TexasInstruments/edgeai-yolox.git
 Instead of training model based on ycbv and lmo dataset, I used self-made dataset which contain only one class of object(fire extinguisher) 
 
