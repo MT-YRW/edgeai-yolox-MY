@@ -1,47 +1,50 @@
-# YOLOX based Models
-This repository is a fork of [YOLOX](https://github.com/Megvii-BaseDetection/YOLOX). This contains the enhancements of the YOLOX repository for supporting additional tasks and embedded friendly ti_lite models. 
+# this readme is from MT-YRW
+A modified version of open-source project named edgeai-yolox. located in:https://github.com/TexasInstruments/edgeai-yolox.git
+Instead of training model based on ycbv and lmo dataset, I used self-made dataset which contain only one class of object(fire extinguisher) 
 
 
-### Installation
+## Installation  
+you can reference [README_ori.md](./README_ori.md) to get start
 
-#### Step1. Install YOLOX.
+## Try to train your own datasets
+### Step1. Preparation
+* **dataset**
+    * A dataset which contains your target models.If you dont know how to make a bop dataset, Refer to this for further details.
+* **labels**
+    * change the label of your models. the code is located in [lmo2coco](./tools/lmo2coco.py), [lmo.py](./yolox/data/datasets/lmo.py) and [object_pose_utils_onnx.py](./demo/ONNXRuntime/object_pose_utils_onnx.py).You can identify what modifications are needed by searching for "fire_extinguisher". 
+
+### Step2. Convert your dataset to coco format
+Rename your train file to "train_pbr" and your test file to "test_bop", build a new file named "annotations", and run this command:
 ```
-./setup.sh
+python tools/lmo2coco.py --datapath './datasets/my' --split train                
+                                                     --split test   
+```
+The above script will generate instances_train.json and instances_test_bop.json under the "annotations" file.
+
+### Step3. Train your model
+Run this command to start your training:
+```
+python -m yolox.tools.train -n yolox-s-object-pose-ti-lite --dataset my -c 'path to pretrained ckpt' -d 4 -b 64 --fp16 -o --task object_pose
 ```
 
-#### Step2. Install [pycocotools](https://github.com/cocodataset/cocoapi).
+### Step4. ONNX Export Including Detection and 6D Pose Estimation
+Run this command to get your ONNX model:
 ```
-pip3 install cython; pip3 install 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
+python tools/export_onnx.py -n yolox-s-object-pose -c "path to ckpt" --output-name your_model.onnx --export-det --dataset my --task object_pose
 ```
 
-### Tasks supported
-* **2D Detection (with Ti-lite models)** 
-    * These YOLOX based 2D detection models are optimized for TI processors. 
-    * Refer to this [readme](./README_2d_od.md) for further details.
-
-* **6D Pose Estimation** 
-    * 6D pose estimation or object pose estimation aims to estimate the 3D orientation and 3D translation of objects in a given environment.  In this work, we propose a multi-object 6D pose estimation framework by enhancing the YOLOX object detector. The network is end-to-end trainable and detects each object along with its pose from a single RGB image without any additional post-processing.
-    * Refer to this [readme](./README_6d_pose.md) for further details.
-
-* **Keypoint Detection / Human Pose Estimation** 
-    * Multi person 2D pose estimation is the task of understanding humans in an image. Given an input image, target is to detect each person and localize their body joints. In this work, we introduce a novel heatmap-free approach for joint detection, and 2D multi-person pose estimation in an image based on the popular YOLO object detection framework. 
-    * In general, this can be called Keypoint Detection or 2D Pose Estimation.  
-    * Refer to [readme](./README_keypoint_detection.md) for further details.
-
-### Sample Inferences
-* Given below are sample inferences for the tasks of human pose estimation and 6d pose estimation.
-
-     Human Pose Estimation   | 6D Pose Estimation 
-    :-------------------------:|:-------------------------:
-    <img width="440" src="./assets/demo_hpe.jpg"> | <img width="400" src="./assets/demo_6d.png">
+### Step5. Test your model
+Run the script as below to run inference with an ONNX model. The script runs inference and visualize the results.
+```
+cd demo/ONNXRuntime
+# Run inference on a set of sample images
+python onnx_inference_object_pose.py --model "path_to_onnx_model"  --image-folder "path-to-input-images" --output-dir "ops_onnxrt" 
+```
 
 
-### Note:
-See the [original documentation](README_megvii.md)
+# Note:
+This readme described a fast and easy way to train your model,which can detect whatever you want. Although I used this frame successfully trained my model and get a preferable result,I'm not sure that my understanding of this method is accurate.If you find something wrong, welcome to correct me!
 
-问题日志：
-1.python tools/lmo2coco.py --datapath './datasets/lmo' --split train                
-                                                     --split test  
-               这行代码运行时，必须保证下载下来的文件毫无改动的储存在目标位置。不能因为看起来两个文件夹叠加在一起很奇怪就把二级文件夹拉出来改名。会导致路径出问题！
+
 
 
