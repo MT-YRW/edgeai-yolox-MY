@@ -250,7 +250,8 @@ def main(kwargs=None, exp=None):
     elif args.dataset == 'lmo':
         img = cv2.imread("../edgeai-yolox/assets/sample_lmo_pbr.jpg")
     else:
-        img = cv2.imread("../edgeai-yolox/assets/dog.jpg")
+        # img = cv2.imread("../edgeai-yolox/assets/dog.jpg")
+        img = cv2.imread("../edgeai-yolox/assets/fire_extinguisher.jpg")   #####~ 提供一张包含目标物体的图片
     img, ratio = preprocess(img, exp.test_size)
     img = img[None, ...]
     img = img.astype('float32')

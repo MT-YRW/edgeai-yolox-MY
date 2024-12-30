@@ -154,9 +154,9 @@ if __name__ == '__main__':
                     dets = dets[sort_index]
                     for det in dets:
                         box, score, cls = det[:4], det[4], int(det[5])
-                        r1, r2 = det[6:9], det[9:12] ## 论文里提到的，R6d，通过归一化和适当的计算可以解出旋转矩阵
-                        t = det[12:15] ## 平移矩阵
-                        ## 这个输出可以解算好再输出。现在输出的是旋转矩阵的前两列和平移矩阵
+                        r1, r2 = det[6:9], det[9:12] #####~ 论文里提到的，R6d，通过归一化和适当的计算可以解出旋转矩阵
+                        t = det[12:15] #####~ 平移矩阵
+                        #####~ 这个输出最好解算好再输出。现在是旋转矩阵的前两列和平移矩阵
                         line = (cls, score, *box, *r1, *r2, *t)
                         with open(output_txt_path, 'a') as f:
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')

@@ -9,7 +9,7 @@ you can reference [README_ori.md](./README_ori.md) to get start
 ## Try to train your own datasets
 ### Step1. Preparation
 * **dataset**
-    * A dataset which contains your target models.If you dont know how to make a bop dataset, Refer to this for further details.
+    * A dataset which contains your target models.If you dont know how to make a bop dataset, Refer to this for further details.[MY_BLOG](https://blog.csdn.net/MT_YRW/article/details/144779117?fromshare=blogdetail&sharetype=blogdetail&sharerId=144779117&sharerefer=PC&sharesource=MT_YRW&sharefrom=from_link)
 * **labels**
     * change the label of your models. the code is located in [lmo2coco](./tools/lmo2coco.py), [lmo.py](./yolox/data/datasets/lmo.py) and [object_pose_utils_onnx.py](./demo/ONNXRuntime/object_pose_utils_onnx.py).You can identify what modifications are needed by searching for "fire_extinguisher". 
 
@@ -43,7 +43,9 @@ python onnx_inference_object_pose.py --model "path_to_onnx_model"  --image-folde
 
 
 # Note:
-This readme described a fast and easy way to train your model,which can detect whatever you want. Although I used this frame successfully trained my model and get a preferable result,I'm not sure that my understanding of this method is accurate.If you find something wrong, welcome to correct me!
+* In this file "#####~" represents this place I had modified to adapt to my needs.You can search "#####~" to find out where and how I changed the origin file. 
+* This readme described a fast and easy way to train your model,which can detect whatever you want. Although I used this frame successfully trained my model and get a preferable result,I'm not sure that my understanding of this method is accurate.If you find something wrong, welcome to correct me!
+
 
 
 

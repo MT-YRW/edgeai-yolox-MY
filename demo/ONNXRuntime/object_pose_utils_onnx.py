@@ -78,14 +78,7 @@ ycbv_vertices = np.array([
 
 #vertices for Linemod objects   #####~
 lm_vertices = np.array([
-    [89.65170000, 61.56410000,  187.66980000],
-    [50.39580000,  90.89790000,  96.86700000],
-    [33.50540000,  63.81650000,  58.72830000],
-    [114.73800000,  37.73570000,  104.00100000],
-    [52.21460000,  38.70380000,  42.84850000],
-    [75.09230000,  53.53750000,  34.62070000],
-    [18.36050000,  38.93300000,  86.40790000],
-    [50.44390000,  54.24850000,  45.40000000],
+    [63.42030000, 43.03160000,  132.287180000],   
     ], dtype=np.float32)   #####~ 模型的min_x、min_y、min_z,用来可视化6D位姿
 
 #order of vertices to draw cuboid
@@ -339,8 +332,8 @@ def draw_obj_pose(origin_img, dets, class_names, class_to_cuboid, camera_matrix,
             print("物体类别与识别置信度:",text)
             print("旋转矩阵:")
             print(rotation_mat)
-            print("平移矩阵:",tx,ty,tz) ## 平移矩阵
-            print("——————————————————————————————————")
+            print("平移矩阵:",tx,ty,tz) 
+            print("——————————————————————————————————")   #####~ 输出旋转矩阵和平移矩阵
             txt_color = (0, 0, 0) if np.mean(_COLORS[cls]) > 0.5 else (255, 255, 255)
             font = cv2.FONT_HERSHEY_SIMPLEX
             txt_size = cv2.getTextSize(text, font, 0.4, 1)[0]
