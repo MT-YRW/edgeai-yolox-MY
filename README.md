@@ -43,7 +43,7 @@ python onnx_inference_object_pose.py --model "path_to_onnx_model"  --image-folde
 
 
 # Note:
-* In this file "#####~" represents this place I had modified to adapt to my needs.You can search "#####~" to find out where and how I changed the origin file. 
+* In this file "#####~" represents this place I had modified to adapt to my needs.You can search it to find out where and how I changed the origin file. 
 * This readme described a fast and easy way to train your model,which can detect whatever you want. Although I used this frame successfully trained my model and get a preferable result,I'm not sure that my understanding of this method is accurate.If you find something wrong, welcome to correct me!
 
 
